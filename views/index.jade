@@ -18,12 +18,18 @@ block content
           input#addPara1(type="text")
           br
           label email 2
-          input#adPara2(type="text")
+          input#addPara2(type="text")
           br
           button#addBtn submit
           br
           include ./common/result
-        #getFriends.tab-pane.fade(role='tabpanel', aria-labelledby='getFriends-tab') get
+        #getFriends.tab-pane.fade(role='tabpanel', aria-labelledby='getFriends-tab')
+          label email:
+          input#getPara1(type="text")
+          br
+          button#getBtn submit
+          br
+          include ./common/result
         #v-pills-commonFriends.tab-pane.fade(role='tabpanel', aria-labelledby='v-pills-commonFriends-tab') common
         #subscribe.tab-pane.fade(role='tabpanel', aria-labelledby='subscribe-tab') subscribe
         #block.tab-pane.fade(role='tabpanel', aria-labelledby='block-tab') block

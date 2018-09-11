@@ -5,7 +5,9 @@ $(document).ready(() => {
         method: 'post',
         url: '/api/' + api,
         data: para,
-        content: 'json'
+        // contentType:'application/json',
+        // content: 'json',
+        // dataType: 'json'
       }).done(function (data) {
         res(data);
       })
@@ -15,9 +17,18 @@ $(document).ready(() => {
     const para = {
       friends: [$('#addPara1').val(), $('#addPara2').val()]
     };
-    ajax('addFriend',para).then(data=>{
+    ajax('addFriend', para).then(data => {
       console.log(data);
-      $('#result').val(JSON.stringify(data));
+      $('.result').val(JSON.stringify(data));
+    })
+  })
+  $('#getBtn').on('click', function () {
+    const para = {
+      email: $('#getPara1').val()
+    };
+    ajax('getFriends', para).then(data => {
+      console.log(data);
+      $('.result').val(JSON.stringify(data));
     })
   })
 })
