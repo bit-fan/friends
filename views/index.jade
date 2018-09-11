@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1= title
+  .row
+    .col-md-3
+      #v-pills-tab.nav.flex-column.nav-pills(role='tablist', aria-orientation='vertical')
+        a#addFriend-tab.nav-link.active(data-toggle='pill', href='#addFriend', role='tab', aria-controls='addFriend', aria-selected='true') Add Friend
+        a#getFriends-tab.nav-link(data-toggle='pill', href='#getFriends', role='tab', aria-controls='getFriends', aria-selected='false') Get Friend
+        a#v-pills-commonFriends-tab.nav-link(data-toggle='pill', href='#v-pills-commonFriends', role='tab', aria-controls='v-pills-commonFriends', aria-selected='false') common Friends
+        a#subscribe-tab.nav-link(data-toggle='pill', href='#subscribe', role='tab', aria-controls='subscribe', aria-selected='false') Subscribe
+        a#block-tab.nav-link(data-toggle='pill', href='#block', role='tab', aria-controls='block', aria-selected='false') Block
+        a#retrieve-tab.nav-link(data-toggle='pill', href='#retrieve', role='tab', aria-controls='retrieve', aria-selected='false') Retrieve
+    .col-9
+      #v-pills-tabContent.tab-content
+        #addFriend.tab-pane.fade.show.active(role='tabpanel', aria-labelledby='addFriend-tab')
+          label email1:
+          input#addPara1(type="text")
+          br
+          label email 2
+          input#adPara2(type="text")
+          br
+          button#addBtn submit
+          br
+          include ./common/result
+        #getFriends.tab-pane.fade(role='tabpanel', aria-labelledby='getFriends-tab') get
+        #v-pills-commonFriends.tab-pane.fade(role='tabpanel', aria-labelledby='v-pills-commonFriends-tab') common
+        #subscribe.tab-pane.fade(role='tabpanel', aria-labelledby='subscribe-tab') subscribe
+        #block.tab-pane.fade(role='tabpanel', aria-labelledby='block-tab') block
+        #retrieve.tab-pane.fade(role='tabpanel', aria-labelledby='retrieve-tab') retrieve
+
