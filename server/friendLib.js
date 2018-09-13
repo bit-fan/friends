@@ -30,6 +30,16 @@ $Friend.createResObj = function (ok, obj) {
   return Promise.resolve(newObj);
 }
 $Friend.add = function (email1, email2) {
+  if (!isValidEmail(email1)) {
+    return this.createResObj(false, {
+      error: email1 + ' is invalid.'
+    });
+  }
+  if (!isValidEmail(email2)) {
+    return this.createResObj(false, {
+      error: email2 + ' is invalid.'
+    });
+  }
   if (this.hasBlock(email1, email2)) {
     return this.createResObj(false, {
       error: email1 + ' blocks ' + email2 + '.'
@@ -78,5 +88,49 @@ $Friend.block = function (req, tar) {
     ppl.friends.splice(idx, 1);
   }
   return this.createResObj(true);
+}
+$Friend.retrieve = function (sender, text) {
+  const mentionedList = getWordContaining(text);
+  const finalEmails = mentionedList;
+  Object.keys(this.ppls).forEach(key => {
+    const ppl = this.ppls[key];
+    if (ppl.blockList.indexOf(sender) !== -1) {
+      // been blocked
+      return;
+    }
+    if (ppl.friends.indexOf(sender) !== -1) {
+      // is friend
+      finalEmails.push(ppl.email);
+      return;
+    }
+    if (ppl.subscribe.indexOf(sender) !== -1) {
+      // subscribed
+      finalEmails.push(ppl.email);
+      return;
+    }
+  })
+
+
+  return this.createResObj(true, {
+    recipients: finalEmails
+  });
+}
+
+function isValidEmail(text) {
+  //simple email validator, can enhance in future
+  var re = /\S+@\S+\.\S+/;
+  return re.test(text);
+}
+
+function getWordContaining(src, char) {
+  src = src || '';
+  char = char || '@';
+  const finalArr = [];
+  src.split(' ').forEach(word => {
+    if (word.indexOf(char) !== -1 && isValidEmail(word)) {
+      finalArr.push(word);
+    }
+  })
+  return finalArr;
 }
 module.exports = Friend;

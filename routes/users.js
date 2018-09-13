@@ -38,6 +38,13 @@ router.post('/block', function (req, res, next) {
       res.send(data);
     });
 })
+router.post('/retrieve', function (req, res, next) {
+  friend.retrieve(req.body.sender, req.body.text)
+    .then(data => {
+      res.send(data);
+    });
+})
+
 
 
 module.exports = router;

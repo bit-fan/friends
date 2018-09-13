@@ -60,5 +60,14 @@ block content
           button#blockBtn block
           br
           include ./common/result
-        #retrieve.tab-pane.fade(role='tabpanel', aria-labelledby='retrieve-tab') retrieve
+        #retrieve.tab-pane.fade(role='tabpanel', aria-labelledby='retrieve-tab')
+          label sender:
+          input#retrievePara1(type="text")
+          br
+          label text
+          input#retrievePara2(type="text")
+          br
+          button#retrieveBtn retrieve
+          br
+          include ./common/result
 

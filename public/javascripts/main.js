@@ -64,5 +64,16 @@ $(document).ready(() => {
       displayResult(data)
     })
   })
+  $('#retrieveBtn').on('click', function () {
+    const para = {
+      sender: $('#retrievePara1').val(),
+      text: $('#retrievePara2').val()
+    };
+    ajax('retrieve', para).then(data => {
+      console.log(data);
+      displayResult(data)
+    })
+  })
+  
 
 })
