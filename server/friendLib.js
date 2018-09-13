@@ -33,4 +33,33 @@ $Friend.getFriends = function (email) {
     count: this.ppls[email].friends.length
   });
 }
+$Friend.commonFriend = function (email1, email2) {
+  const ppl1 = this.ppls[email1];
+  const ppl2 = this.ppls[email2];
+
+  const friendList1 = ppl1.friends;
+  const friendList2 = ppl2.friends;
+  const finalList = friendList1.filter(item => {
+    return friendList2.indexOf(item) !== -1;
+  })
+  return Promise.resolve({
+    success: true,
+    friends: finalList,
+    count: finalList.length
+  });
+}
+$Friend.subscribe = function (req, tar) {
+  const ppl = this.ppls[req];
+  ppl.subscribe.push(tar);
+  return Promise.resolve({
+    success: true
+  });
+}
+$Friend.block = function (req, tar) {
+  const ppl = this.ppls[req];
+  ppl.subscribe.push(tar);
+  return Promise.resolve({
+    success: true
+  });
+}
 module.exports = Friend;

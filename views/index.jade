@@ -30,8 +30,35 @@ block content
           button#getBtn submit
           br
           include ./common/result
-        #v-pills-commonFriends.tab-pane.fade(role='tabpanel', aria-labelledby='v-pills-commonFriends-tab') common
-        #subscribe.tab-pane.fade(role='tabpanel', aria-labelledby='subscribe-tab') subscribe
-        #block.tab-pane.fade(role='tabpanel', aria-labelledby='block-tab') block
+        #v-pills-commonFriends.tab-pane.fade(role='tabpanel', aria-labelledby='v-pills-commonFriends-tab')
+          label email1:
+          input#commonPara1(type="text")
+          br
+          label email 2
+          input#commonPara2(type="text")
+          br
+          button#commonBtn submit
+          br
+          include ./common/result
+        #subscribe.tab-pane.fade(role='tabpanel', aria-labelledby='subscribe-tab')
+          label requestor:
+          input#subPara1(type="text")
+          br
+          label target
+          input#subPara2(type="text")
+          br
+          button#subBtn subscribe
+          br
+          include ./common/result
+        #block.tab-pane.fade(role='tabpanel', aria-labelledby='block-tab')
+          label requestor:
+          input#blockPara1(type="text")
+          br
+          label target
+          input#blockPara2(type="text")
+          br
+          button#blockBtn block
+          br
+          include ./common/result
         #retrieve.tab-pane.fade(role='tabpanel', aria-labelledby='retrieve-tab') retrieve
 

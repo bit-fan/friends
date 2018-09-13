@@ -31,4 +31,34 @@ $(document).ready(() => {
       $('.result').val(JSON.stringify(data));
     })
   })
+  $('#commonBtn').on('click', function () {
+    const para = {
+      friends: [$('#commonPara1').val(), $('#commonPara2').val()]
+    };
+    ajax('commonFriend', para).then(data => {
+      console.log(data);
+      $('.result').val(JSON.stringify(data));
+    })
+  })
+  $('#subBtn').on('click', function () {
+    const para = {
+      requestor: $('#subPara1').val(),
+      target: $('#subPara2').val()
+    };
+    ajax('subscribeUpdate', para).then(data => {
+      console.log(data);
+      $('.result').val(JSON.stringify(data));
+    })
+  })
+  $('#blockBtn').on('click', function () {
+    const para = {
+      requestor: $('#subPara1').val(),
+      target: $('#subPara2').val()
+    };
+    ajax('block', para).then(data => {
+      console.log(data);
+      $('.result').val(JSON.stringify(data));
+    })
+  })
+
 })
