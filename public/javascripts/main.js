@@ -13,13 +13,17 @@ $(document).ready(() => {
       })
     });
   }
+
+  function displayResult(data) {
+    $('.result').val(JSON.stringify(data, null, 2));
+  }
   $('#addBtn').on('click', function () {
     const para = {
       friends: [$('#addPara1').val(), $('#addPara2').val()]
     };
     ajax('addFriend', para).then(data => {
       console.log(data);
-      $('.result').val(JSON.stringify(data));
+      displayResult(data)
     })
   })
   $('#getBtn').on('click', function () {
@@ -28,7 +32,7 @@ $(document).ready(() => {
     };
     ajax('getFriends', para).then(data => {
       console.log(data);
-      $('.result').val(JSON.stringify(data));
+      displayResult(data)
     })
   })
   $('#commonBtn').on('click', function () {
@@ -37,7 +41,7 @@ $(document).ready(() => {
     };
     ajax('commonFriend', para).then(data => {
       console.log(data);
-      $('.result').val(JSON.stringify(data));
+      displayResult(data)
     })
   })
   $('#subBtn').on('click', function () {
@@ -47,17 +51,17 @@ $(document).ready(() => {
     };
     ajax('subscribeUpdate', para).then(data => {
       console.log(data);
-      $('.result').val(JSON.stringify(data));
+      displayResult(data)
     })
   })
   $('#blockBtn').on('click', function () {
     const para = {
-      requestor: $('#subPara1').val(),
-      target: $('#subPara2').val()
+      requestor: $('#blockPara1').val(),
+      target: $('#blockPara2').val()
     };
     ajax('block', para).then(data => {
       console.log(data);
-      $('.result').val(JSON.stringify(data));
+      displayResult(data)
     })
   })
 
