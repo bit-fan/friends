@@ -12,39 +12,44 @@ function getCurrentFriend(req) {
 router.post('/addFriend', function (req, res, next) {
   getCurrentFriend(req).add(req.body.friends[0], req.body.friends[1])
     .then(data => {
-      res.send(data);
+      return commonRes(res,data);
     });
 })
 router.post('/getFriends', function (req, res, next) {
   getCurrentFriend(req).getFriends(req.body.email)
     .then(data => {
-      res.send(data);
+      return commonRes(res,data);
     });
 })
 router.post('/commonFriend', function (req, res, next) {
   getCurrentFriend(req).commonFriend(req.body.friends[0], req.body.friends[1])
     .then(data => {
-      res.send(data);
+      return commonRes(res,data);
     });
 })
 router.post('/subscribeUpdate', function (req, res, next) {
   getCurrentFriend(req).subscribe(req.body.requestor, req.body.target)
     .then(data => {
-      res.send(data);
+      return commonRes(res,data);
     });
 })
 router.post('/block', function (req, res, next) {
   getCurrentFriend(req).block(req.body.requestor, req.body.target)
     .then(data => {
-      res.send(data);
+      return commonRes(res,data);
     });
 })
 router.post('/retrieve', function (req, res, next) {
   getCurrentFriend(req).retrieve(req.body.sender, req.body.text)
     .then(data => {
-      res.send(data);
+      return commonRes(res,data);
     });
 })
+
+function commonRes(res, data) {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(data);
+}
 
 
 
