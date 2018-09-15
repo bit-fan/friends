@@ -95,27 +95,32 @@ $Friend.block = function (req, tar) {
 }
 $Friend.retrieve = function (sender, text) {
   // starts with all
-  const finalEmails = util.getEmailInStr(text);
+  const mentioendList = util.getEmailInStr(text);
+  const friendOrSubscribedList = [];
   Object.keys(this.ppls).forEach(key => {
     const ppl = this.ppls[key];
     if (ppl.blockList.indexOf(sender) !== -1) {
       // been blocked
       return;
     }
+    if (mentioendList.indexOf(ppl.email) !== -1) {
+      // already in list
+      return;
+    }
     if (ppl.friends.indexOf(sender) !== -1) {
       // is friend
-      finalEmails.push(ppl.email);
+      friendOrSubscribedList.push(ppl.email);
       return;
     }
     if (ppl.subscribe.indexOf(sender) !== -1) {
       // subscribed
-      finalEmails.push(ppl.email);
+      friendOrSubscribedList.push(ppl.email);
       return;
     }
   })
 
   return this.createResObj(true, {
-    recipients: finalEmails
+    recipients: mentioendList.concat(friendOrSubscribedList)
   });
 }
 

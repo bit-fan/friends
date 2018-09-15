@@ -16,12 +16,16 @@ block content
       .tab-content
         #clearFriend.tab-pane.fade.show.active(role='tabpanel', aria-labelledby='clearFriend-tab')
           .intro
-            label This API is for 
+            label This API is to clear all exisiting data stored, prefer to run this before every test.
+            label POST: /api/clearAll
             
           button#clearBtn submit
           br
           include ./common/result
         #addFriend.tab-pane.fade(role='tabpanel', aria-labelledby='addFriend-tab')
+          .intro
+            label This API is to create a friend connection between two email addresses.
+            label POST: /api/addFriend
           label email1:
           input#addPara1(type="text")
           br
@@ -32,6 +36,9 @@ block content
           br
           include ./common/result
         #getFriends.tab-pane.fade(role='tabpanel', aria-labelledby='getFriends-tab')
+          .intro
+            label This API is to retrieve the friends list for an email address.
+            label POST: /api/getFriends
           label email:
           input#getPara1(type="text")
           br
@@ -39,6 +46,9 @@ block content
           br
           include ./common/result
         #v-pills-commonFriends.tab-pane.fade(role='tabpanel', aria-labelledby='v-pills-commonFriends-tab')
+          .intro
+            label This API is to retrieve the common friends list between two email addresses.
+            label POST: /api/commonFriend
           label email1:
           input#commonPara1(type="text")
           br
@@ -49,6 +59,9 @@ block content
           br
           include ./common/result
         #subscribe.tab-pane.fade(role='tabpanel', aria-labelledby='subscribe-tab')
+          .intro
+            label This API is to subscribe to updates from an email address.
+            label POST: /api/subscribeUpdate
           label requestor:
           input#subPara1(type="text")
           br
@@ -59,6 +72,9 @@ block content
           br
           include ./common/result
         #block.tab-pane.fade(role='tabpanel', aria-labelledby='block-tab')
+          .intro
+            label This API is to block updates from an email address.
+            label POST: /api/block
           label requestor:
           input#blockPara1(type="text")
           br
@@ -69,6 +85,9 @@ block content
           br
           include ./common/result
         #retrieve.tab-pane.fade(role='tabpanel', aria-labelledby='retrieve-tab')
+          .intro
+            label This API is to retrieve all email addresses that can receive updates from an email address.
+            label POST: /api/retrieve
           label sender:
           input#retrievePara1(type="text")
           br
