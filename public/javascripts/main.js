@@ -17,6 +17,12 @@ $(document).ready(() => {
   function displayResult(data) {
     $('.result').val(JSON.stringify(data, null, 2));
   }
+  $('#clearBtn').on('click', function () {
+    ajax('clearAll').then(data => {
+      console.log(data);
+      displayResult(data)
+    })
+  })
   $('#addBtn').on('click', function () {
     const para = {
       friends: [$('#addPara1').val(), $('#addPara2').val()]
@@ -74,6 +80,6 @@ $(document).ready(() => {
       displayResult(data)
     })
   })
-  
+
 
 })

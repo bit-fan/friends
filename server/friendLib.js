@@ -1,21 +1,14 @@
-// ppl obj
-function ppl(email) {
-  this.email = email;
-  this.friends = [];
-  this.subscribe = [];
-  this.blockList = [];
-}
-const $ppl = ppl.prototype;
-$ppl.addFriend = function (a) {
-  this.friends.push(a);
-}
+const util = require('./util');
+const ppl = require('./ppl');
 
 // Friend obj
 const Friend = function () {
   this.ppls = {};
 }
 const $Friend = Friend.prototype;
-
+$Friend.init = function () {
+  this.ppls = {};
+}
 $Friend.getPpl = function (email) {
   this.ppls[email] = this.ppls[email] || new ppl(email);
   return this.ppls[email];
@@ -30,12 +23,12 @@ $Friend.createResObj = function (ok, obj) {
   return Promise.resolve(newObj);
 }
 $Friend.add = function (email1, email2) {
-  if (!isValidEmail(email1)) {
+  if (!util.isValidEmail(email1)) {
     return this.createResObj(false, {
       error: email1 + ' is invalid.'
     });
   }
-  if (!isValidEmail(email2)) {
+  if (!util.isValidEmail(email2)) {
     return this.createResObj(false, {
       error: email2 + ' is invalid.'
     });
@@ -57,8 +50,8 @@ $Friend.add = function (email1, email2) {
 }
 $Friend.getFriends = function (email) {
   return this.createResObj(true, {
-    friends: this.ppls[email].friends,
-    count: this.ppls[email].friends.length
+    friends: this.getPpl(email).friends,
+    count: this.getPpl(email).friends.length
   });
 }
 $Friend.commonFriend = function (email1, email2) {
@@ -77,12 +70,12 @@ $Friend.commonFriend = function (email1, email2) {
 }
 $Friend.subscribe = function (req, tar) {
   const ppl = this.getPpl(req);
-  ppl.subscribe.push(tar);
+  ppl.addSubscribe(tar);
   return this.createResObj(true);
 }
 $Friend.block = function (req, tar) {
   const ppl = this.getPpl(req);
-  ppl.blockList.push(tar);
+  ppl.addToBlockList(tar);
   const idx = ppl.friends.indexOf(tar);
   if (idx !== -1) {
     ppl.friends.splice(idx, 1);
@@ -90,8 +83,8 @@ $Friend.block = function (req, tar) {
   return this.createResObj(true);
 }
 $Friend.retrieve = function (sender, text) {
-  const mentionedList = getWordContaining(text);
-  const finalEmails = mentionedList;
+  // starts with all
+  const finalEmails = util.getEmailInStr(text);
   Object.keys(this.ppls).forEach(key => {
     const ppl = this.ppls[key];
     if (ppl.blockList.indexOf(sender) !== -1) {
@@ -110,27 +103,9 @@ $Friend.retrieve = function (sender, text) {
     }
   })
 
-
   return this.createResObj(true, {
     recipients: finalEmails
   });
 }
 
-function isValidEmail(text) {
-  //simple email validator, can enhance in future
-  var re = /\S+@\S+\.\S+/;
-  return re.test(text);
-}
-
-function getWordContaining(src, char) {
-  src = src || '';
-  char = char || '@';
-  const finalArr = [];
-  src.split(' ').forEach(word => {
-    if (word.indexOf(char) !== -1 && isValidEmail(word)) {
-      finalArr.push(word);
-    }
-  })
-  return finalArr;
-}
 module.exports = Friend;
