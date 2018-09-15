@@ -1,6 +1,16 @@
 const util = require('./util');
 const ppl = require('./ppl');
 
+const errorCodeObj = {
+  1: (email) => {
+    return "Invalid email(s): <" + email + ">.";
+  },
+  2: "Invalid parameters.",
+  3: (email) => {
+    return "Repeated emails: <" + email + ">.";
+  }
+}
+
 // Friend obj
 const Friend = function () {
   this.ppls = {};
@@ -16,23 +26,24 @@ $Friend.getPpl = function (email) {
 $Friend.hasBlock = function (host, checkEmail) {
   return this.getPpl(host).blockList.indexOf(checkEmail) !== -1;
 }
-$Friend.createResObj = function (ok, obj) {
+$Friend.createResObj = function (ok, obj, paraObj) {
   obj = obj || {};
   let newObj = Object.assign({}, obj);
   newObj.success = ok;
+  if (!ok) {
+    switch (obj.errorCode) {
+      case 1:
+      case 3:
+        newObj.errorText = errorCodeObj[obj.errorCode](paraObj.email || '');
+        break;
+      case 2:
+        newObj.errorText = errorCodeObj['2'];
+        break;
+    }
+  }
   return Promise.resolve(newObj);
 }
 $Friend.add = function (email1, email2) {
-  if (!util.isValidEmail(email1)) {
-    return this.createResObj(false, {
-      error: email1 + ' is invalid.'
-    });
-  }
-  if (!util.isValidEmail(email2)) {
-    return this.createResObj(false, {
-      error: email2 + ' is invalid.'
-    });
-  }
   if (this.hasBlock(email1, email2)) {
     return this.createResObj(false, {
       error: email1 + ' blocks ' + email2 + '.'

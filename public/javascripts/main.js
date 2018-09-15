@@ -4,23 +4,30 @@ $(document).ready(() => {
       $.ajax({
         method: 'post',
         url: '/api/' + api,
-        data: para,
-        // contentType:'application/json',
-        // content: 'json',
-        // dataType: 'json'
+        data: para
       }).done(function (data) {
-        res(data);
+        showRequest(para);
+        showResponse(data);
       })
     });
   }
 
-  function displayResult(data) {
+  $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+    showRequest();
+    showResponse();
+  })
+
+  function showResponse(data) {
     $('.result').val(JSON.stringify(data, null, 2));
+  }
+
+  function showRequest(data) {
+    $('.request').val(JSON.stringify(data, null, 2));
   }
   $('#clearBtn').on('click', function () {
     ajax('clearAll').then(data => {
       console.log(data);
-      displayResult(data)
+      showResponse(data);
     })
   })
   $('#addBtn').on('click', function () {
@@ -29,7 +36,7 @@ $(document).ready(() => {
     };
     ajax('addFriend', para).then(data => {
       console.log(data);
-      displayResult(data)
+      // showResponse(data)
     })
   })
   $('#getBtn').on('click', function () {
@@ -38,7 +45,7 @@ $(document).ready(() => {
     };
     ajax('getFriends', para).then(data => {
       console.log(data);
-      displayResult(data)
+      // showResponse(data)
     })
   })
   $('#commonBtn').on('click', function () {
@@ -47,7 +54,7 @@ $(document).ready(() => {
     };
     ajax('commonFriend', para).then(data => {
       console.log(data);
-      displayResult(data)
+      // showResponse(data)
     })
   })
   $('#subBtn').on('click', function () {
@@ -57,7 +64,7 @@ $(document).ready(() => {
     };
     ajax('subscribeUpdate', para).then(data => {
       console.log(data);
-      displayResult(data)
+      // showResponse(data)
     })
   })
   $('#blockBtn').on('click', function () {
@@ -67,7 +74,7 @@ $(document).ready(() => {
     };
     ajax('block', para).then(data => {
       console.log(data);
-      displayResult(data)
+      // showResponse(data)
     })
   })
   $('#retrieveBtn').on('click', function () {
@@ -77,7 +84,7 @@ $(document).ready(() => {
     };
     ajax('retrieve', para).then(data => {
       console.log(data);
-      displayResult(data)
+      // showResponse(data)
     })
   })
 
