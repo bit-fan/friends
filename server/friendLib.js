@@ -99,14 +99,7 @@ $Friend.retrieve = function (sender, text) {
   const friendOrSubscribedList = [];
   Object.keys(this.ppls).forEach(key => {
     const ppl = this.ppls[key];
-    if (ppl.blockList.indexOf(sender) !== -1) {
-      // been blocked
-      return;
-    }
-    if (mentioendList.indexOf(ppl.email) !== -1) {
-      // already in list
-      return;
-    }
+
     if (ppl.friends.indexOf(sender) !== -1) {
       // is friend
       friendOrSubscribedList.push(ppl.email);
@@ -118,9 +111,17 @@ $Friend.retrieve = function (sender, text) {
       return;
     }
   })
-
+  const finalList = mentioendList.concat(friendOrSubscribedList).filter(email => {
+    if (email === sender) {
+      // cannot retrieve oneself
+      return false;
+    }
+    //cannot be blocked
+    return this.getPpl(email).blockList.indexOf(sender) === -1;
+  })
   return this.createResObj(true, {
-    recipients: mentioendList.concat(friendOrSubscribedList)
+    // to remove duplicate
+    recipients: Array.from(new Set(finalList))
   });
 }
 

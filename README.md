@@ -1,5 +1,5 @@
 # Some assumptions:
-1. User can block another user, but can never be "unblocked". In inhancement, defriend should be added, similarly to "unsubscribe", "unblock". Otherwise, user can never take action back if he/she blocks another user. Here, 'de-friend' and 'block' are functionally different, as user can still make friend with previously 'de-friended', but can never make friend again with 'blocked' user.
+1. User can block another user, but can never be "unblocked". In inhancement, unfriend should be added, similarly to "unsubscribe", "unblock". Otherwise, user can never take action back if he/she blocks another user. Here, 'unfriend' and 'block' are functionally different, as user can still make friend with previously 'unfriended', but can never make friend again with 'blocked' user.
 2. Duplicates emails are not allowed in all APIs params, i.e. user can never make friends with him/herself, can never have a common friend,block or subscribe with/to oneself.
 3. new API clearFriend is added to the server. Since currently we cannot identify differnet user dataset, so preferrably, trigger the clearFriend API first before any formal testing to initialise the dataset. In future, once we can identify the user group, this api is unnecessary.
 
@@ -119,6 +119,7 @@ Sample Response
     ],
   "count" : 1
 }
+
 **fail response**: {
 "success": false,
 "errorCode" : ###,
@@ -163,6 +164,7 @@ Sample Response
 **success response**: {
   "success": true
 }
+
 **fail response**: {
 "success": false,
 "errorCode" : ###,
@@ -199,6 +201,7 @@ Sample Response
 **success response**: {
   "success": true
 }
+
 **fail response**: {
 "success": false,
 "errorCode" : ###,
