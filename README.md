@@ -6,7 +6,7 @@
 # Notes: 
 1. This api server has been deployed to heroku cloud server. The test client can be visited anytime with this url: http://spfriends.herokuapp.com/home
 2. Because I am using a free heroku account, so the server may be in sleep mode after some time. Any request will wake up the server. So, the only consequence is user may experience a slower response for the first API request/web request, but after that, functions will be back to normal.
-3. Additional api clearAll is added here. User can use it with this url: http://spfriends.herokuapp.com/api/clearAll, this will initialise the friends dataset. Prefer to run this command before starting of any formal testing to clear all historical data.
+3. Additional api clearAll is added here. User can use post request with this url: http://spfriends.herokuapp.com/api/clearAll, this will initialise the friends dataset. Prefer to run this command before starting of any formal testing to clear all historical data.
 4. To install the API server locally, I provided two scripts under the root folder, one for windows, one for mac/linux. Assume node has been previously installed. the script will install the necessary modules, then run the test, then start the server locally with port 3000.
 
 # FRIEND API
